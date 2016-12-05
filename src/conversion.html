@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>conversion</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+    <script src="serveur8.js"></script>
+    <script type="text/javascript" src="conversion.js"></script>
+    <script type="text/javascript" src="creneau.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <legend>Convertir un fichier ICS en un tableau JSON</legend>
+      <label for="icsData" class="control-label">Donnee ICS a convertir</label>
+      <br/>
+      <textarea class="form-control" id="icsData" rows="15"></textarea>
+      <br/>
+      <button id="convertir" class="btn btn-primary">Convertir</button>
+      <button id="emploiepage" class="btn btn-primary" onclick="document.location.href='affichage.html';">Afficher emploie du temps</button>
+      <br/><br/><br/>
+      <label>Resultats JSON de la conversion</label>
+      <br/>
+      <textarea class="form-control" id="jsonData" rows="15"></textarea>
+      <br/><br/><br/><br/>
+    </div>
+  </body>
+  <script>
+    var button = document.getElementById('convertir')
+    button.addEventListener('click', new Conversion('icsData','jsonData'));
+    
+    testerExistenceTableau('ptittab',
+      function (retour) {
+        if (retour.donnees.existence) {
+          supprimerTableau('ptittab', 
+            function () {
+              creerTableau('ptittab');
+            }
+          );
+          console.log('suppression du tableau ptittab existant et creation nouveau tableau');
+        } else {
+          creerTableau('ptittab');
+          console.log('creation nouveau tableau ptittab');
+        }
+      }
+    );
+  </script>
+</html>
