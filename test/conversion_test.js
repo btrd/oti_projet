@@ -40,3 +40,59 @@ QUnit.test('test click button', function(assert) {
   assert.ok(event.calledOnce);
   conv.handleEvent.restore();
 });
+
+QUnit.test('test conversionChamp null', function(assert) {
+  var conv = new Conversion('icsData', 'jsonData');
+  var creStart = {debut: "", fin: "", lieu: "", resume: ""};
+  var cre = {debut: "", fin: "", lieu: "", resume: ""};
+
+  conv.conversionChamp(creStart, '');
+  assert.deepEqual(cre, creStart);
+
+  conv.conversionChamp(creStart, 'TEST:TEST');
+  assert.deepEqual(cre, creStart);
+});
+
+QUnit.test('test conversionChamp start', function(assert) {
+  var conv = new Conversion('icsData', 'jsonData');
+  
+  var creStart = {debut: "", fin: "", lieu: "", resume: ""};
+  var cre = {debut: "TEST_DTSTART", fin: "", lieu: "", resume: ""};
+
+  conv.conversionChamp(creStart, 'DTSTART:TEST_DTSTART');
+  assert.deepEqual(cre, creStart);
+});
+
+QUnit.test('test conversionChamp end', function(assert) {
+  var conv = new Conversion('icsData', 'jsonData');
+  
+  var creStart = {debut: "", fin: "", lieu: "", resume: ""};
+  var cre = {debut: "", fin: "TEST_DTEND", lieu: "", resume: ""};
+
+  conv.conversionChamp(creStart, 'DTEND:TEST_DTEND');
+  assert.deepEqual(cre, creStart);
+});
+
+QUnit.test('test conversionChamp resume', function(assert) {
+  var conv = new Conversion('icsData', 'jsonData');
+  
+  var creStart = {debut: "", fin: "", lieu: "", resume: ""};
+  var cre = {debut: "", fin: "", lieu: "", resume: "TEST_SUMMARY"};
+
+  conv.conversionChamp(creStart, 'SUMMARY:TEST_SUMMARY');
+  assert.deepEqual(cre, creStart);
+});
+
+QUnit.test('test conversionCreneau', function(assert) {
+  var conv = new Conversion('icsData', 'jsonData');
+  
+  var data = "\nTRANSP:OPAQUE\nDTEND;TZID=Europe/Dublin:20160906T094500\nUID:Icald04a76e28f804f8762ed662a82ed5165\nDTSTAMP:20160831T140451Z\nLOCATION:M5 - A1\nDESCRIPTION: L'objectif était de passer d'une application JAVA vers une \n solution node.js.\nStage effectué par Sufiane Souissi à Ekino.\nRéférent\n  entreprise : Matthieu Comby\nTuteur universitaire : Lionel Seinturier\nSTATUS:CONFIRMED\nSEQUENCE:0\nX-APPLE-TRAVEL-ADVISORY-BEHAVIOR:AUTOMATIC\nSUMMARY: Conception et développement d’une application permettant l’orch\n estration et le provisioning d’un ensemble de services online à la deman\n de et à la destination des professionnels dans un cloud privé.\nDTSTART;TZID=Europe/Dublin:20160906T090000\nCREATED:19000101T120000Z\nLAST-MODIFIED:20160831T140451Z\nEND:VEVENT";
+  var creneau = new Creneau();
+  creneau.debut = "20160906T090000";
+  creneau.fin = "20160906T094500";
+  creneau.resume = " Conception et développement d’une application permettant l’orch";
+  creneau.lieu = "M5 - A1";
+
+  var creNew = conv.conversionCreneau(data);
+  assert.deepEqual(creneau, creNew);
+});
