@@ -13,7 +13,6 @@ QUnit.test('test_add', function(assert) {
   fixture += ('<input type="text" id="ops" name="ops" value="ADD"/>');
   fixture += ('</form>');
 
-
   var fixtureNode = document.getElementById('qunit-fixture');
   fixtureNode.innerHTML = fixture;
 

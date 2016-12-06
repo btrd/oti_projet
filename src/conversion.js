@@ -17,7 +17,7 @@ class Conversion {
     var icsData = this.source.value;
     this.conversion(icsData);
     this.cible.value = JSON.stringify(this.creneaux);
-  };
+  }
 
   conversion(icsData) {
     var icsData_inArray = icsData.split('BEGIN:VEVENT');
@@ -31,7 +31,7 @@ class Conversion {
       this.creneaux.push(creneau);
 
     }
-  };
+  }
 
   conversionChamp(creneau, champActuel) {
     if (champActuel.indexOf(':') !== -1) {
@@ -45,7 +45,7 @@ class Conversion {
       else if (couple[0].startsWith('LOCATION'))
         creneau.lieu=couple[1];
     }
-  };
+  }
 
   envoyerAuServeur() {
     for (var i = 0; i < this.creneaux.length; i++) {
@@ -55,14 +55,13 @@ class Conversion {
          error(creneauCourant)
       );
     }
-  };
+  }
 
   success(creneauCourant) {
     return creneauCourant + 'envoyé au serveur';
-  };
+  }
 
   error(creneauCourant) {
     return creneauCourant + 'PAS envoyé au serveur';
-  };
-  
+  }
 }
