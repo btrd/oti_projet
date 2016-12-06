@@ -19,7 +19,9 @@
       <textarea class="form-control" id="icsData" rows="15"></textarea>
       <br/>
       <button id="convertir" class="btn btn-primary">Convertir</button>
-      <button id="emploiepage" class="btn btn-primary" onclick="document.location.href='affichage.html';">Afficher emploie du temps</button>
+      <a href="affichage.html">
+        <button id="emploiepage" class="btn btn-primary">Afficher emploie du temps</button>
+      </a>
       <br/><br/><br/>
       <label>Resultats JSON de la conversion</label>
       <br/>
@@ -30,19 +32,19 @@
   <script>
     var button = document.getElementById('convertir')
     button.addEventListener('click', new Conversion('icsData','jsonData'));
-    
-    testerExistenceTableau('ptittab',
+
+    testerExistenceTableau('agendaJean',
       function (retour) {
         if (retour.donnees.existence) {
-          supprimerTableau('ptittab', 
+          supprimerTableau('agendaJean',
             function () {
-              creerTableau('ptittab');
+              creerTableau('agendaJean');
             }
           );
-          console.log('suppression du tableau ptittab existant et creation nouveau tableau');
+          console.log('suppression du tableau agendaJean existant et creation nouveau tableau');
         } else {
-          creerTableau('ptittab');
-          console.log('creation nouveau tableau ptittab');
+          creerTableau('agendaJean');
+          console.log('creation nouveau tableau agendaJean');
         }
       }
     );

@@ -48,14 +48,13 @@ class Conversion {
   };
 
   envoyerAuServeur() {
-    for (var i = 0; i < this.creneaux.length;i++) {
+    for (var i = 0; i < this.creneaux.length; i++) {
       var creneauCourant = this.creneaux[i];
-      ajouterElementDansTableauALaFin('ptittab', creneauCourant,
+      ajouterElementDansTableauALaFin('agendaJean', creneauCourant,
          success(creneauCourant),
          error(creneauCourant)
       );
     }
-    
   };
 
   success(creneauCourant) {
