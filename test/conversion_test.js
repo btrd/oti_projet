@@ -96,3 +96,40 @@ QUnit.test('test conversionCreneau', function(assert) {
   var creNew = conv.conversionCreneau(data);
   assert.deepEqual(creneau, creNew);
 });
+
+QUnit.test('test demarrer', function(assert) {
+  var fixture = '<input type="text" id="icsData" value="icsData_test"/>';
+  fixture += '<input type="text" id="jsonData"/>';
+  var fixtureNode = document.getElementById('qunit-fixture');
+
+  fixtureNode.innerHTML = fixture;
+
+  var conv = new Conversion('icsData', 'jsonData');
+
+  assert.equal(conv.source.value, 'icsData_test');
+
+  var conversion = sinon.stub(conv, 'conversion', function() { this.creneaux = ['json_test']; });
+  conv.demarrer();
+  assert.equal(conv.cible.value, '[\"json_test\"]');
+});
+
+QUnit.test('test conversion', function(assert) {
+  var input = 'TRUCBEGIN:VEVENTTOTOBEGIN:VEVENTTATA';
+  var conv = new Conversion('icsData', 'jsonData');
+
+  var conversionCreneau = sinon.stub(conv, 'conversionCreneau', function(data) { return data; });
+  conv.conversion(input);
+
+  assert.equal(conversionCreneau.callCount, 2);
+  assert.deepEqual(conv.creneaux, ['TOTO', 'TATA']);
+});
+
+QUnit.test('test envoyerAuServeur', function(assert) {
+  var conv = new Conversion('icsData', 'jsonData');
+  conv.creneaux = ['TOTO', 'TATA'];
+
+  var conversionCreneau = sinon.stub(window, 'ajouterElementDansTableauALaFin');
+  conv.envoyerAuServeur();
+
+  assert.equal(conversionCreneau.callCount, 2);
+});

@@ -10,19 +10,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js',
+      'src/serveur8.js',
       'src/*.js',
       'test/*.js'
-    ],
-
-    // list of files to exclude
-    exclude: [
-      'test/calendar_test_suite.js'
     ],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-	     'src/*.js':['coverage']
+         'src/*.js':['coverage']
     },
 
     // test results reporter to use
