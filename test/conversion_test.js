@@ -128,6 +128,8 @@ QUnit.test('test demarrer', function(assert) {
   var conversion = sinon.stub(conv, 'conversion', function() { this.creneaux = ['json_test']; });
   conv.demarrer();
   assert.equal(conv.cible.value, '[\"json_test\"]');
+
+  conv.conversion.restore();
 });
 
 QUnit.test('test demarrer empty source', function(assert) {
@@ -150,6 +152,8 @@ QUnit.test('test conversion', function(assert) {
 
   assert.equal(conversionCreneau.callCount, 2);
   assert.deepEqual(conv.creneaux, ['TOTO', 'TATA']);
+
+  conv.conversionCreneau.restore();
 });
 
 QUnit.test('test envoyerAuServeur', function(assert) {
@@ -160,4 +164,6 @@ QUnit.test('test envoyerAuServeur', function(assert) {
   conv.envoyerAuServeur();
 
   assert.equal(conversionCreneau.callCount, 2);
+
+  window.ajouterElementDansTableauALaFin.restore();
 });

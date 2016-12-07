@@ -1,63 +1,73 @@
 class Affichage {
 
-  constructor() {
-    this.tableau = {};
-  }
+  constructor() {}
 
-  recupererLesDonnees() {
+  getData() {
     var self = this;
-    avoirToutLeTableau('tableauLePallec', function (retour) {
-      var tableau = retour.donnees.tableau.sort();
-      self.afficherLesDonnees(tableau);
+    avoirToutLeTableau('tableauLePallec', function (res) {
+      var array = res.donnees.tableau;
+      self.showData(array);
     });
   }
 
-  afficherLesDonnees(tableau) {
-    var tab = this.copie(tableau);
-
-    for (var i = 0; i < tableau.length; i++) {
-      this.formaterAffichage(tab[i]);
+  showData(array) {
+    array = this.formatData(array);
+    for (var i = 0; i < array.length; i++) {
+      this.showElt(array[i]);
     }
   }
 
-  copie(tab) {
-    var cop = [];
-    for (var i = 0; i < tab.length; i++) {
-      cop[i]=tab[i];
-    }
-    return cop;
+  formatData(array) {
+    array = array.filter(function(e) { return e.debut !== undefined });
+    array = array.map(function(e) {
+      e.debut = new Date(e.debut);
+      e.fin = new Date(e.fin);
+      return e;
+    });
+    
+    array = array.sort(function(a, b){
+      return b.debut - a.debut;
+    });
+    return array;
   }
 
-  formaterAffichage(donnee) {
-    var jour = donnee.debut.split(' ')[2];
-    var entier = parseInt(jour);
-    if(entier > 5 && entier < 10)
-      jour = entier;
-    else
-      jour = 0;
+  showElt(elt) {
+    var col = this.getCol(elt.debut);
 
     var div = document.createElement('div');
-    div.className = 'col-lg-12';
+    div.className = 'panel panel-default';
 
-    document.getElementById('j' + jour).appendChild(div);
+    var time = elt.debut.getHours() + ':' + elt.debut.getMinutes() + ' - ' + elt.fin.getHours() + ':' + elt.fin.getMinutes();
+    this.createElt(time, div, 'panel-heading');
+    this.createElt(elt.resume, div, 'panel-body');
+    this.createElt(elt.lieu, div, 'panel-footer');
 
-    var div2 = document.createElement('div');
-    div2.className = 'panel panel-default';
-    div.appendChild(div2);
-
-    this.creerUnCarre(donnee.debut.split(' ')[4], div2, 'panel-heading');
-    this.creerUnCarre(donnee.resume, div2, 'panel-body');
-    this.creerUnCarre(donnee.lieu, div2, 'panel-footer');
-
+    col.appendChild(div);
   }
 
-  creerUnCarre(donnee, parent, myClass) {
+  getCol(date) {
+    var date_id = 'j' + date.getFullYear() + date.getMonth() + date.getDay();
+    var col = document.getElementById(date_id);
+
+    if (col === null) {
+      var row = document.getElementById('row');
+
+      col = document.createElement('div');
+      col.className = 'col';
+      col.id = date_id;
+      row.appendChild(col);
+      
+      var title = document.createElement('h2');
+      title.innerHTML = date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear();
+      col.appendChild(title)
+    }
+    return col;
+  }
+
+  createElt(content, parent, myClass) {
     var div = document.createElement('div');
     div.className = myClass;
-
-    var text = document.createTextNode(donnee);
-    div.appendChild(text);
-
+    div.innerHTML = content;
     parent.appendChild(div);
   }
 }
