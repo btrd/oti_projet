@@ -7,7 +7,11 @@ class Conversion {
 
   handleEvent() {
     if (this.creneaux.length === 0) {
-      this.demarrer();
+      try {
+        this.demarrer();
+      } catch(e) {
+        window.alert(e.toString());
+      }
     } else {
       this.envoyerAuServeur();
     }
@@ -15,6 +19,9 @@ class Conversion {
 
   demarrer() {
     var icsData = this.source.value;
+    if (icsData === '') {
+      throw new EmptyIcs(this.source);
+    };
     this.conversion(icsData);
     this.cible.value = JSON.stringify(this.creneaux);
   }
@@ -68,4 +75,12 @@ class Conversion {
   error(creneauCourant) {
     return creneauCourant + 'PAS envoyé au serveur';
   }
+}
+
+function EmptyIcs(_e) {
+  this.e = _e;
+}
+
+EmptyIcs.prototype.toString = function() {
+  return 'ICS source is empty : ' + this.e;
 }

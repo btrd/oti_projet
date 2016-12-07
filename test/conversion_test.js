@@ -24,6 +24,23 @@ QUnit.test('test handleEvent', function(assert) {
   conv.envoyerAuServeur.restore();
 });
 
+QUnit.test('test handleEvent empty source', function(assert) {
+  var fixture = '<input type="text" id="icsData"/>';
+  fixture += '<input type="text" id="jsonData"/>';
+  var fixtureNode = document.getElementById('qunit-fixture');
+  fixtureNode.innerHTML = fixture;
+
+  var conv = new Conversion('icsData', 'jsonData');
+
+  var w_alert = sinon.stub(window, "alert" );
+
+  conv.handleEvent();
+
+  assert.ok(w_alert.calledOnce);
+
+  window.alert.restore();
+});
+
 QUnit.test('test click button', function(assert) {
   var fixture = '<button id="convertir"/>';
   var fixtureNode = document.getElementById('qunit-fixture');
@@ -111,6 +128,17 @@ QUnit.test('test demarrer', function(assert) {
   var conversion = sinon.stub(conv, 'conversion', function() { this.creneaux = ['json_test']; });
   conv.demarrer();
   assert.equal(conv.cible.value, '[\"json_test\"]');
+});
+
+QUnit.test('test demarrer empty source', function(assert) {
+  var fixture = '<input type="text" id="icsData"/>';
+  fixture += '<input type="text" id="jsonData"/>';
+  var fixtureNode = document.getElementById('qunit-fixture');
+  fixtureNode.innerHTML = fixture;
+
+  var conv = new Conversion('icsData', 'jsonData');
+
+  assert.throws(function() { conv.demarrer(); }, EmptyIcs);
 });
 
 QUnit.test('test conversion', function(assert) {
