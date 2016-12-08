@@ -12,6 +12,7 @@ module.exports = function(config) {
     files: [
       'src/*.js',
       'test/*.js',
+      'vendors/serveur8.js',
       'vendors/jquery-1.12.4.min.js'
     ],
 
