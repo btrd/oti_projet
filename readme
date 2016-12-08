@@ -1,6 +1,28 @@
 Le fichier test_suite.html fonctionne uniquement sur Firefox.
 
-La base de donnée de sonar se trouve dans le fichier sonar.h2.db .
+La base de données de sonar se trouve dans le fichier sonar.h2.db .
 
-Une fichier ics de test se trouve dans test.ics .
+Un fichier ics de test se trouve dans test.ics .
 
+J'ai dabord testé mon code avec Selenium SDK, le test est simple. Je remplis le champ ICS et test que j'obtiens bien un retour. Je test la partie interface du site.
+
+Pour démarrer la phase de tests fonctionnels, j'ai d'abord utilisé Sonar afin de détecter la qualité de monde code (voir sonar_screen_1.png).
+À partir de ces données je me suis donné comme objectif d'arriver à avoir aucun Bugs, Vulnerabilities, Code Smells et Duplications.
+Cette étape m'a permis de simplifier le code que j'avais écrit au départ.
+
+La 2e étape a donc été d'écrire les tests fonctionnels avec Qunit et sinon. J'ai d'abord écrit les tests qui me paraissaient "naturel", sur les fonctions compliquées ou importantes (fonction de conversion par exemple).
+Cette étape m'a permis de coriger des bugs potentiels et d'éclater mes fonctions trop longue/compliqué dans des fonctions plus petites qui réalisent des tâches simples. Donc plus simple à tester.
+Dans un second temps mon objectif a été d'obtenir la couverture de test maximum, tout en gardant des tests utiles et qui ont du sens.
+
+Le résultat est :
+- 0 Bug
+- 0 Vulnerabilitie
+- 0 Code Smell
+- 0 Duplication
+- 100% Coverages
+
+On a donc un code de qualité professionnel.
+
+En dernier lieu j'ai repris mon test Selenium afin de vérifier que le résultat était toujours le même.
+
+Jean Bertrand
