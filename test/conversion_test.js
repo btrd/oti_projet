@@ -167,3 +167,20 @@ QUnit.test('test envoyerAuServeur', function(assert) {
 
   window.ajouterElementDansTableauALaFin.restore();
 });
+
+QUnit.test('test success', function(assert) {
+  var conv = new Conversion('icsData', 'jsonData');
+
+  var res = conv.success('test');
+
+  assert.equal(res, 'testenvoyé au serveur');
+
+});
+
+QUnit.test('test error', function(assert) {
+  var conv = new Conversion('icsData', 'jsonData');
+
+  var res = conv.error('test');
+
+  assert.equal(res, 'testPAS envoyé au serveur');
+});

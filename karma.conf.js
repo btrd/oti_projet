@@ -16,6 +16,11 @@ module.exports = function(config) {
       'vendors/jquery-1.12.4.min.js'
     ],
 
+    // list of files to exclude
+    exclude: [
+      'test/test_suite.js'
+    ],
+
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
