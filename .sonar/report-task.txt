@@ -1,5 +1,5 @@
 projectKey=fil:m2eserv:calendar
 serverUrl=http://localhost:9000
 dashboardUrl=http://localhost:9000/dashboard/index/fil:m2eserv:calendar
-ceTaskId=AVjWLg6iyZDCmbjCYhlr
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVjWLg6iyZDCmbjCYhlr
+ceTaskId=AVjanBCTyZDCmbjCYhls
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVjanBCTyZDCmbjCYhls

@@ -66,3 +66,41 @@ QUnit.test('test showElt', function(assert) {
   aff.getCol.restore();
   aff.createElt.restore();
 });
+
+QUnit.test('test getCol col already exist', function(assert) {
+  var fixture = '<div id="j201611"/><div id="row"/>';
+  var fixtureNode = document.getElementById('qunit-fixture');
+  fixtureNode.innerHTML = fixture;
+
+  var aff = new Affichage();
+  var date = new Date(2016, 1, 1);
+  var col = aff.getCol(date);
+
+  assert.equal(col, document.getElementById('j201611'));
+});
+
+QUnit.test('test getCol col doesnt exist', function(assert) {
+  var fixture = '<div id="j201612"/><div id="row"/>';
+  var fixtureNode = document.getElementById('qunit-fixture');
+  fixtureNode.innerHTML = fixture;
+
+  var aff = new Affichage();
+  var date = new Date(2016, 1, 1);
+  var col = aff.getCol(date);
+
+  assert.equal(col, document.getElementById('j201611'));
+});
+
+QUnit.test('test createElt', function(assert) {
+  var fixture = '<div id="parent"/>';
+  var fixtureNode = document.getElementById('qunit-fixture');
+  fixtureNode.innerHTML = fixture;
+
+  var aff = new Affichage();
+  var parent = document.getElementById('parent');
+  aff.createElt('content', parent, 'class_name');
+  var elt = document.getElementsByClassName('class_name')[0];
+
+  assert.equal(elt.innerHTML, 'content');
+  assert.equal(elt.parentElement, parent);
+});
