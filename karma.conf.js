@@ -10,10 +10,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js',
-      'src/serveur8.js',
       'src/*.js',
-      'test/*.js'
+      'test/*.js',
+      'vendors/jquery-1.12.4.min.js'
     ],
 
     // preprocess matching files before serving them to the browser
